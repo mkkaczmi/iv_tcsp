@@ -84,8 +84,8 @@ def process_file(input_file: str, output_file: str, mode: str, error_count: int 
     """Process input file and save results to output file."""
     ec = ErrorCorrection()
     
-    with open(input_file, 'rb') as f_in, open(output_file, 'wb') as f_out:
-        if mode == 'encode':
+    if mode == 'encode':
+        with open(input_file, 'rb') as f_in, open(output_file, 'w') as f_out:
             while True:
                 byte = f_in.read(1)
                 if not byte:
@@ -93,17 +93,18 @@ def process_file(input_file: str, output_file: str, mode: str, error_count: int 
                 encoded = ec.encode_byte(byte[0])
                 if error_count > 0:
                     encoded = ec.introduce_errors(encoded, error_count)
-                f_out.write(bytes([ec.bits_to_byte(encoded[:8])]))
-                f_out.write(bytes([ec.bits_to_byte(encoded[8:])]))
-        
-        elif mode == 'decode':
-            while True:
-                data_byte = f_in.read(1)
-                parity_byte = f_in.read(1)
-                if not data_byte or not parity_byte:
-                    break
-                
-                encoded = ec.byte_to_bits(data_byte[0]) + ec.byte_to_bits(parity_byte[0])
+                # Convert encoded bits to string and write with newline
+                encoded_str = ''.join(map(str, encoded))
+                f_out.write(encoded_str + '\n')
+    
+    elif mode == 'decode':
+        with open(input_file, 'r') as f_in, open(output_file, 'wb') as f_out:
+            for line in f_in:
+                # Remove newline and convert string to list of bits
+                encoded_str = line.strip()
+                if len(encoded_str) != 16:  # Skip invalid lines
+                    continue
+                encoded = [int(bit) for bit in encoded_str]
                 decoded_byte, error_corrected = ec.decode_byte(encoded)
                 f_out.write(bytes([decoded_byte]))
 
