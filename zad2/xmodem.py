@@ -30,11 +30,14 @@ class Transmitter:
     def send_file(self, data, crc_mode):
         block_number = 1
         offset = 0
-        if crc_mode:
-            while True:
-                ch = self.ser.read(1)
-                if ch and ch[0] == CRC_MODE:
+        while True:
+            ch = self.ser.read(1)
+            if ch:
+                if crc_mode and ch[0] == CRC_MODE:
                     break
+                elif not crc_mode and ch[0] == NAK:
+                    break
+
 
         while offset < len(data):
             block = data[offset:offset + BLOCK_SIZE]
