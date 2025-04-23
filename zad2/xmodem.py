@@ -1,6 +1,4 @@
 import serial
-import time
-import sys
 
 SOH = 0x01
 EOT = 0x04
