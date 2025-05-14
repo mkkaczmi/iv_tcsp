@@ -1,1 +1,4 @@
-pyserial==3.5 
+# Ten projekt używa tylko standardowych bibliotek Pythona
+# Nie są wymagane żadne dodatkowe zależności 
+
+bitarray==2.9.2 
