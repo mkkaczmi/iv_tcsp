@@ -1,10 +1,10 @@
 # TCSP Project
 
-This repository contains implementations of communication protocols and error correction mechanisms for serial communication.
+This repository contains implementations of communication protocols, error correction mechanisms, signal processing demonstrations, and data compression techniques.
 
 ## Project Structure
 
-The project is organized into two main components:
+The project is organized into four main components:
 
 ### 1. XModem Protocol Implementation
 Located in the `XModem/` directory, this module implements the XModem protocol for reliable file transfer over serial communication. The implementation includes:
@@ -18,10 +18,29 @@ Located in the `ErrorCorrection/` directory, this module provides error correcti
 - Error correction techniques
 - Data integrity verification
 
+### 3. Analog-Digital Conversion
+Located in the `AnalogDigitalConversion/` directory, this module demonstrates audio signal processing with:
+- Sample rate conversion
+- Bit depth conversion
+- Signal quality analysis using SNR
+- Audio recording and playback capabilities
+
+### 4. Huffman Encoding
+Located in the `HuffmanEncoding/` directory, this module implements data compression using:
+- Huffman coding algorithm
+- Client-server architecture for data transmission
+- Text compression and decompression
+- Compression ratio analysis
+
 ## Requirements
 
 - Python 3.x
 - pyserial==3.5
+- pyaudio
+- numpy
+- scipy
+- soundfile
+- bitarray
 
 ## Setup
 
@@ -46,6 +65,8 @@ pip install -r requirements.txt
 Each component has its own README file with detailed usage instructions:
 - [XModem Protocol Documentation](XModem/README.md)
 - [Error Correction Documentation](ErrorCorrection/README.md)
+- [Analog-Digital Conversion Documentation](AnalogDigitalConversion/README.md)
+- [Huffman Encoding Documentation](HuffmanEncoding/README.md)
 
 ## License
 

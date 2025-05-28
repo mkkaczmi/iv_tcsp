@@ -1,4 +1,6 @@
-# Ten projekt używa tylko standardowych bibliotek Pythona
-# Nie są wymagane żadne dodatkowe zależności 
-
-bitarray==2.9.2 
+bitarray==3.4.2
+numpy==2.2.6
+pyaudio==0.2.14
+pyserial==3.5
+scipy==1.15.3
+soundfile==0.13.1

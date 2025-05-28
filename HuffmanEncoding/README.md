@@ -1,139 +1,75 @@
-# Huffman Coding Implementation
+# Huffman Encoding Module
 
-This project implements Huffman coding for text compression with client-server communication. It includes text compression using Huffman coding algorithm and network transmission of the compressed data.
+This module implements the Huffman coding algorithm for data compression and demonstrates its usage in a client-server architecture for text compression and transmission.
 
 ## Features
 
-- Text compression using Huffman coding
-- Binary data transmission over network sockets
-- Client-server architecture
-- Compression ratio display
-- Saving and loading Huffman codes
-- Error handling and logging
+- Huffman tree construction and encoding
+- Text compression using variable-length codes
+- Client-server implementation for data transmission
+- Compression ratio calculation
+- Support for UTF-8 text encoding
+- Binary data handling with padding
 
 ## Requirements
 
 - Python 3.x
-- bitarray package
+- bitarray
 
 ## Installation
 
-1. Clone the repository:
+Install the required dependency:
 ```bash
-git clone <repository-url>
-cd huffman-coding
-```
-
-2. Install required packages:
-```bash
-pip install -r requirements.txt
+pip install bitarray
 ```
 
 ## Usage
 
-The program can work in two modes: server and client.
+The program can be run in two modes: server and client.
 
-### Starting the Server
+### Server Mode
 
-Run the server first:
+Run the server to receive and decode compressed text:
 ```bash
 python main.py server
 ```
 
 The server will:
-- Listen for incoming connections
-- Receive compressed data
-- Decode the data using Huffman codes
-- Save the decoded text to `decoded.txt`
+1. Listen for incoming connections
+2. Receive compressed data and Huffman codes
+3. Decode the received data
+4. Save the decoded text to `decoded.txt`
 
-### Running the Client
+### Client Mode
 
-In a separate terminal, run the client with an input file:
+Run the client to compress and send text:
 ```bash
 python main.py client input.txt
 ```
 
 The client will:
-- Read the input text file
-- Generate Huffman codes
-- Display compression statistics
-- Send the compressed data to the server
-- Save the Huffman codes to `huffman_codes.json`
+1. Read the input text file
+2. Build Huffman codes for the text
+3. Compress the text using the generated codes
+4. Send the compressed data and codes to the server
+5. Save the Huffman codes to `huffman_codes.json`
 
-## Example
+## Output Files
 
-1. Create a text file `input.txt` with some content:
-```
-to be or not to be
-```
+The program generates the following files:
+- `huffman_codes.json`: Dictionary of Huffman codes for each character
+- `decoded.txt`: Decoded text received by the server
 
-2. Start the server in one terminal:
-```bash
-python main.py server
-```
+## Compression Analysis
 
-3. Run the client in another terminal:
-```bash
-python main.py client input.txt
-```
+The program displays:
+- Huffman codes for each character
+- Compression ratio
+- Original and compressed data sizes
 
-4. Check the results:
-- `decoded.txt` - contains the decoded text
-- `huffman_codes.json` - contains the Huffman codes used for compression
+## Implementation Details
 
-## How It Works
-
-1. **Huffman Tree Building**
-   - Counts character frequencies in the input text
-   - Builds a Huffman tree based on these frequencies
-   - Generates optimal binary codes for each character
-
-2. **Compression**
-   - Converts text to binary data using Huffman codes
-   - Efficiently packs bits into bytes for transmission
-   - Includes necessary padding information
-
-3. **Network Communication**
-   - Uses TCP sockets for reliable data transmission
-   - Sends metadata (Huffman codes) and compressed data separately
-   - Handles data size prefixing for proper message framing
-
-4. **Decompression**
-   - Reconstructs binary data from received bytes
-   - Uses Huffman codes to decode the original text
-   - Handles padding removal
-
-## File Structure
-
-- `main.py` - Main program file containing all the code
-- `requirements.txt` - List of Python package dependencies
-- `README.md` - This documentation file
-- Generated files:
-  - `huffman_codes.json` - Generated Huffman codes
-  - `decoded.txt` - Decoded output text
-
-## Error Handling
-
-The program includes error handling for common scenarios:
-- File not found
-- Network connection issues
-- Invalid input data
-- Decoding errors
-
-## Performance
-
-The compression ratio depends on the input text characteristics:
-- More repetitive text = better compression
-- Longer input text = more efficient compression
-- Binary data transmission reduces network usage
-
-## Limitations
-
-- Works with text files only
-- Both server and client must be running on the same machine (localhost)
-- Fixed port number (12345)
-- Single connection handling
-
-## Contributing
-
-Feel free to submit issues and enhancement requests!
+- Uses bitarray for efficient bit-level operations
+- Implements padding for byte-aligned transmission
+- Handles UTF-8 encoded text
+- Provides error handling for network operations
